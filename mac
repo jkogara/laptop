@@ -113,12 +113,10 @@ brew bundle --file=- <<EOF
 tap "thoughtbot/formulae"
 tap "homebrew/services"
 tap "universal-ctags/universal-ctags"
-cask "gpg-suite"
-
-# Unix
-brew "universal-ctags", args: ["HEAD"]
 EOF
 
+brew cask install gpg-suite
+brew install universal-ctags --head
 brew install git
 brew install openssl
 brew install reattach-to-user-namespace
@@ -132,22 +130,27 @@ brew install imagemagick
 brew install libyaml # should come after openssl
 brew install coreutils
 
-brew install postgres
+brew install postgresql@9.6
 brew install redis
 
 brew install rbenv
 brew install nodenv
 brew install kubernetes-cli
-brew services start postgresql
+brew services start postgresql@9.6
 brew services start redis
 
-rbenv init
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+source ~/.zshrc
 
-curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | zsh
+curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-doctor | bash
 
-eval "$(nodenv init -)"
+echo 'export PATH="$HOME/.nodenv/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(nodenv init -)"' >> ~/.zshrc
 
-curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | zsh
+source ~/.zshrc
+
+curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | bash
 
 gem update --system
 bundle config --global jobs $((number_of_cores - 1))
