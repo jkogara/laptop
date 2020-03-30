@@ -127,7 +127,7 @@ brew install zsh
 
 brew install imagemagick
 
-brew install libyaml # should come after openssl
+brew install libyaml
 brew install coreutils
 
 brew install postgresql@9.6
@@ -151,6 +151,3 @@ echo 'eval "$(nodenv init -)"' >> ~/.zshrc
 source ~/.zshrc
 
 curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-doctor | bash
-
-gem update --system
-bundle config --global jobs $((number_of_cores - 1))
